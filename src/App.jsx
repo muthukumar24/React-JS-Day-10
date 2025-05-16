@@ -1,9 +1,11 @@
 import React from 'react'; // Importing necessary React components
 import { blue, green, purple, red } from '@mui/material/colors'; // Importing Material-UI color palette
 import { ThemeProvider } from '@emotion/react'; // Importing ThemeProvider from Emotion
-import { CssBaseline, createTheme } from '@mui/material'; // Importing CssBaseline and createTheme from Material-UI
+import { CssBaseline, createTheme , Container} from '@mui/material'; // Importing CssBaseline and createTheme from Material-UI
 import UserList from './UserList'; // Importing UserList component
-
+import Login from './Login';
+import Register from './Register';
+import {BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom'
 // Creating custom theme using createTheme function
 const theme = createTheme({
   palette:{
@@ -27,10 +29,19 @@ const theme = createTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={theme}> {/* ThemeProvider for applying custom theme */}
-      <CssBaseline /> {/* CssBaseline for consistent styling across browsers */}
-      <UserList /> {/* Rendering UserList component */}
-    </ThemeProvider>
+    <Router>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Container>
+        <Routes>
+          <Route path='/register' element={<Register />}></Route>
+          <Route path='/login' element={<Login />}></Route>
+          <Route path='/users' element={<UserList />}></Route>
+          <Route path='/' element={<Navigate to="/login"></Navigate>}></Route>
+        </Routes>
+      </Container>
+    </ThemeProvider >
+  </Router>
   );
 }
 
